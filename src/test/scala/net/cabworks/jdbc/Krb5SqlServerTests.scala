@@ -8,17 +8,17 @@ import org.scalatest.{Matchers, FreeSpec}
 class Krb5SqlServerTests extends FreeSpec with Matchers{
 
   "extract correct properties from jdbc url" in {
-    val url = "jdbc:sqlserver://serverName:1023;property1=value1;property2=value2"
+    val url = "jdbc:sqlserver://serverName:1023;integratedSecurity=true;authenticationScheme=JavaKerberos"
 
-    Krb5SqlServer.connectionProperties(url) should be(Map("property1"->"value1", "property2"->"value2"))
+    Krb5SqlServer.connectionProperties(url) should be(Map("integratedSecurity"->"true", "authenticationScheme"->"JavaKerberos"))
 
   }
 
   "convert to krb to sql server url" in {
     val principal = "testUser"
     val keytab = "testUser.keytab"
-    val url =  "jdbc:sqlserver://serverName:1023;"
-    val krbUrl = s"jdbc:${Krb5SqlServer.krbPrefix}://serverName:1023;${Krb5SqlServer.principalKey}=$principal;${Krb5SqlServer.keytabFile}=$keytab"
+    val url =  "jdbc:sqlserver://serverName:1023;integratedSecurity=true;authenticationScheme=JavaKerberos;"
+    val krbUrl = s"jdbc:${Krb5SqlServer.krbPrefix}://serverName:1023;integratedSecurity=true;authenticationScheme=JavaKerberos;${Krb5SqlServer.principalKey}=$principal;${Krb5SqlServer.keytabFile}=$keytab"
 
     Krb5SqlServer.toSqlServerUrl(krbUrl) should be(url)
   }

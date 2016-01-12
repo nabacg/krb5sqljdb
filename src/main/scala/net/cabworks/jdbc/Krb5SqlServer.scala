@@ -55,7 +55,7 @@ class Krb5SqlServer extends Driver {
 }
 
 object Krb5SqlServer {
-  def toSqlServerUrl(url: String): String = s"${head(url).replace(krbPrefix, sqlServerPrefix)};${connectionProperties(url).filter({case (k, v) => k != principalKey && k != keytabFile}).map({case (k, v) => s"$k=$v"}).mkString(";")}"
+  def toSqlServerUrl(url: String): String = s"${head(url).replace(krbPrefix, sqlServerPrefix)};${connectionProperties(url).filter({case (k, v) => k != principalKey && k != keytabFile}).map({case (k, v) => s"$k=$v"}).mkString(";")};"
 
   val sqlServerPrefix = "sqlserver"
   val krbPrefix = "krb5ss"
