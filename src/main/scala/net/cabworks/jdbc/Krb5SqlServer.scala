@@ -1,10 +1,13 @@
+package net.cabworks.jdbc
+
 import java.security.PrivilegedAction
-import java.sql.{DriverPropertyInfo, Connection, Driver}
+import java.sql.{Connection, Driver, DriverPropertyInfo}
 import java.util.Properties
 import java.util.logging.Logger
+
 import com.microsoft.sqlserver.jdbc.SQLServerDriver
-import org.apache.hadoop.security.UserGroupInformation
 import org.apache.hadoop.conf.Configuration
+import org.apache.hadoop.security.UserGroupInformation
 import org.apache.hadoop.security.UserGroupInformation.AuthenticationMethod
 
 class Krb5SqlServer extends Driver {
